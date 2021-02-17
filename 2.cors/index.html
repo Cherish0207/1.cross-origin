@@ -15,7 +15,7 @@
     <script>
       let xhr = new XMLHttpRequest();
       // 第三个参数表示是否异步
-      xhr.open("GET", "http://localhost:3002/getData", true);
+      xhr.open("PUT", "http://localhost:3002/getData", true);
       xhr.setRequestHeader('name1', 'cherish')
       xhr.setRequestHeader('name2', 'cherish')
       xhr.onreadystatechange = function () {

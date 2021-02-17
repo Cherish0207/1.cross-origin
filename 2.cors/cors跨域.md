@@ -27,3 +27,8 @@ xhr.setRequestHeader("name1", "cherish");
 // 服务端
 res.setHeader("Access-Control-Allow-Headers", "name1");
 ```
+
+#### 4. 复杂请求跨域
+
+put 请求是可以发送请求体的，想跨域，要先发送一个预警，看能否能跨域
+如果是 options 请求时，不作处理
