@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>postMessage-b</title>
+  </head>
+  <body>
+    <b>b.html</b>
+    <script>
+      window.onmessage = function (e) {
+        console.log("b 页面 收到消息：", e.data);
+        top.postMessage("i am b.html", "*");
+      };
+    </script>
+  </body>
+</html>

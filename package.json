@@ -6,7 +6,9 @@
   "scripts": {
     "serve": "node ./1.jsonp/server.js",
     "cors:front": "nodemon ./2.cors/front-end.js",
-    "cors:service": "nodemon ./2.cors/service-end.js"
+    "cors:service": "nodemon ./2.cors/service-end.js",
+    "postMessage:a": "nodemon ./3.postMessage/a/index.js",
+    "postMessage:b": "nodemon ./3.postMessage/b/index.js"
   },
   "keywords": [],
   "author": "",
