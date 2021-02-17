@@ -4,12 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "serve": "node ./1.jsonp/server.js"
+    "serve": "node ./1.jsonp/server.js",
+    "cors:front": "nodemon ./2.cors/front-end.js",
+    "cors:service": "nodemon ./2.cors/service-end.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "nodemon": "^2.0.7"
   }
 }
