@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>jsonp原理</title>
+  </head>
+  <body>
+    <script>
+      function jsonp({ url, params, cb }) {
+        return new Promise((resolve) => {
+          const script = document.createElement("script");
+          let queryStr = "";
+          Object.keys(params).forEach((k) => {
+            queryStr += `&${k}=${params[k]}`;
+          });
+          script.src = `${url}?${queryStr}&cb=${cb}`;
+          document.documentElement.appendChild(script);
+          window[cb] = function (data) {
+            resolve(data);
+            document.documentElement.removeChild(script);
+          };
+        });
+      }
+      // jsonp就是对 创建script并调用方法的步骤 进行了封装
+      jsonp({
+        url: "https://www.baidu.com/sugrec?json=1&prod=pc&from=pc_web",
+        params: {
+          wd: "v",
+          bs:
+            "indexedDB%20%E6%9C%89%E5%90%8C%E6%BA%90%E9%99%90%E5%88%B6%E5%90%97",
+          csor: 1,
+        },
+        cb: "show",
+      }).then((data) => {
+        console.log(data);
+      });
+    </script>
+  </body>
+</html>
