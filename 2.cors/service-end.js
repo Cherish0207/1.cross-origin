@@ -16,7 +16,7 @@ app.use((req, res, next) => {
     // 允许哪个方法访问我，默认支持get post head，不支持复杂的请求如put
     res.setHeader("Access-Control-Allow-Methods", "PUT");
     // 预检的存活时间
-    res.setHeader("Access-Control-Max-Age", 6);
+    res.setHeader("Access-Control-Max-Age", 3600);
     // 允许携带cookie
     res.setHeader("Access-Control-Allow-Credentials", true);
     // 允许返回的头

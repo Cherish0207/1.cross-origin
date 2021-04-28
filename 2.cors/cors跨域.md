@@ -28,11 +28,17 @@ xhr.setRequestHeader("name1", "cherish");
 res.setHeader("Access-Control-Allow-Headers", "name1");
 ```
 
-#### 4. 复杂请求跨域
+#### 4. 复杂请求跨域 & 预检的存活时间
 
 put 在 restful 风格接口里代表修改
 put 请求是可以发送请求体的，想跨域，要先发送一个预警，看能否能跨域
 如果是 options 请求时，不作处理
+
+```js
+res.setHeader("Access-Control-Max-Age", 3600);
+```
+
+表示该 pre-flight 请求在客户端 1 小时后过期，在这个时间段内发送复杂请求就不会再伴随着发送 pre-flight 请求，减少对服务器的压力，但是时间也不宜设置太大.
 
 #### 5.允许携带 cookie,设置允许返回的头
 
