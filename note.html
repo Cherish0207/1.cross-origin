@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>note</title>
+  </head>
+  <body>
+    <pre>
+跨域8法
+1.jsonp实现
+  · jsonp就是对创建script并调用方法的步骤进行了封装
+
+2.cors
+    Access to XMLHttpRequest at 'http://localhost:3002/getData' from origin 'http://localhost:3001' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
+  特点
+    · 纯后端提供，靠的不是浏览器，而是服务端验证
+    · 安全性高
+    · 开发中最常用
+  实现
+      服务端设置：
+        res.setHeader("Access-Control-Allow-Origin", "origin");
+      允许携带哪个头访问我
+        · 客户端
+          xhr.setRequestHeader("name1", "cherish");
+        · 服务端
+          res.setHeader("Access-Control-Allow-Headers", "name1");
+      复杂请求跨域：允许哪个方法访问我，默认支持get post head，不支持复杂的请求如put
+        · 客户端
+          xhr.open("PUT", "http://localhost:3002/getData", true);
+        · 服务端
+          res.setHeader("Access-Control-Allow-Methods", "PUT");
+      预检的存活时间
+          res.setHeader("Access-Control-Max-Age", 3600);
+      允许携带 cookie
+        · 客户端
+          document.cookie = "name=crx";
+          xhr.withCredentials = true;
+          // 跨域请求是否提供凭据信息(cookie、HTTP认证及客户端SSL证明等)
+          // 也可以简单的理解为，当前请求为跨域类型时是否在请求中协带cookie。
+        · 服务端
+            res.setHeader("Access-Control-Allow-Credentials", true);
+            // 是否可以将对请求的响应暴露给页面。true可以，其他值均不可以
+      设置允许返回的头
+        · 客户端
+          console.log(xhr.getResponseHeader('name'));
+        · 服务端
+          res.setHeader("Access-Control-Expose-Headers", "name");
+          res.setHeader("name", "svs");
+
+      ps
+      1.如果 Access-Control-Allow-Origin 设置为 *，表示任何人都能访问，此时不能和 Access-Control-Allow-Credentials 共用
+      2.当配置了xhr.withCredentials = true时，必须在后端增加 response 头信息Access-Control-Allow-Origin，且必须指定域名，而不能指定为*。
+      如果在同域下配置xhr.withCredentials，无论配置true还是false，效果都会相同，且会一直提供凭据信息(cookie、HTTP认证及客户端SSL证明等)
+
+3.postMessage--iframe
+  特点
+  · 两个不同域下的页面之间通信
+  · 注: 不是数据通信，而是页面的通信，和 ajax 不同
+  · 有点像 webworker
+
+4.window.name--iframe
+  实现
+    a和b是同域的 http://localhost:3000 
+    c是独立的 http://localhost:4000
+    a要获取c的数据， a先引用c，c把值放到window.name,把a引用的地址改到b
+
+5.hash--iframe
+  路径后面的hash值可以用来通信 
+  目的a想访问c
+  a给c传一个hash值 c收到hash值后  c把hash值传递给b b将结果放到a的hash值中
+
+6.domain: 二级域名和一级域名之间通信
+  a: http://a.crx.cn:3000/a.html
+  b: http://b.crx.cn:3000/b.html
+  两个页面都设置 document.domain = 'crx.cn'
+
+7.websocket
+    利用 websocket 没有跨域限制
+    高级 api 兼容性差， 一般使用 socket.io 库来做兼容
+    websocket 和 http 内部都是 tcp
+    </pre>
+  </body>
+</html>
