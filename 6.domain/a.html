@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
+  <script src="./js.cookie.js"></script>
 </head>
 <body>
   <!-- 域名 一级域名二级域名 -->
@@ -14,6 +15,8 @@
   helloa
   <iframe src="http://b.crx.cn:3000/b.html" frameborder="0" onload="load()" id="frame"></iframe>
   <script>
+    // http://a.crx.cn:3000/a.html 下设置tokentest后，跳转到http://b.crx.cn:3000/b.html也能用
+    Cookies.set("token", "tokentest", { domain: "crx.cn", expires: 365 });
     document.domain = 'crx.cn'
     function load() {
       console.log(frame.contentWindow.a);
